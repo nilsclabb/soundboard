@@ -1,44 +1,36 @@
 # Soundboard
 
-A tiny soundboard that lives in the MacBook notch.
+An 8-pad soundboard that swells out of the MacBook notch.
 
 ## Run
 
+Needs macOS 14+ and the Xcode command line tools (`xcode-select --install`).
+
 ```sh
-make run     # build, bundle into build/Soundboard.app, launch
-make clean
+git clone https://github.com/nilsclabb/soundboard.git
+cd soundboard
+make run
 ```
 
-Requires macOS 14+ and Xcode command line tools.
+`make run` builds `build/Soundboard.app` and launches it. It lives in the menu bar, with no Dock icon. On Macs without a notch, hover the top centre of the screen.
+
+YouTube import needs `brew install yt-dlp ffmpeg`.
 
 ## Use
 
-- Hover the notch → it swells. Click → the 8-pad board opens.
-- Drop audio files on a pad (or click an empty pad to browse). Extra files fill the next empty pads.
-- Drop a YouTube link on a pad, or press `⌘V` with one copied (fills the first empty pad). It downloads, then the trim window opens.
-- Drag a pad onto another to swap them (or move it to an empty one).
-- Click a pad or press `1`–`8` to play. `Space` or `Enter` stops whatever is playing. `Esc`, clicking elsewhere, or moving away closes it.
-- `•••` on a pad → volume slider (relative to system volume), Trim… (start/end, the file is untouched), Move to another preset, or Delete. Right-click has Move to and Delete.
-- Presets: the row above the pads. Click to switch (or `←`/`→`), `+` to add, right-click to rename or delete.
-- Menu bar icon → Enabled (turns the notch off/on), Launch at Login, About, Quit.
+- Hover the notch to preview, click to open the board.
+- Add sounds: drop audio files or a YouTube link on a pad, click an empty pad, or `⌘V` a copied link.
+- Play: click a pad or press `1`–`8`. `Space`/`Enter` stops all, `Esc` closes.
+- Drag a pad onto another to swap them.
+- `•••` on a pad: volume, trim, move to another preset, delete.
+- Presets: the row above the pads. `←`/`→` switches, `+` adds, right-click renames or deletes.
+- Menu bar icon: enable/disable, launch at login, quit.
 
-Sounds are copied to `~/Library/Application Support/Soundboard/`.
+Sounds and presets are stored in `~/Library/Application Support/Soundboard/`.
 
-## Grab a sound from YouTube
-
-Needs `brew install yt-dlp ffmpeg`.
+## Terminal helpers
 
 ```sh
-make sound URL="https://youtu.be/..."                      # whole video as mp3
-make sound URL="https://youtu.be/..." START=0:05 END=0:08  # just that clip
+make sound URL="https://youtu.be/..." [START=0:05 END=0:08]  # mp3 into ~/Downloads/Soundboard/
+make cut FILE=path/to/sound.mp3 START=0:05 END=0:08          # writes "sound (cut).mp3"
 ```
-
-Files land in `~/Downloads/Soundboard/` (Finder opens it), ready to drop on a pad.
-
-## Cut a sound
-
-```sh
-make cut FILE=~/Downloads/Soundboard/name.mp3 START=0:05 END=0:08
-```
-
-Writes `name (cut).mp3` next to the original. Times can be `0:05`, `5`, or `5.5`.
