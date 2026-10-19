@@ -34,3 +34,4 @@ Sounds and presets are stored in `~/Library/Application Support/Soundboard/`.
 make sound URL="https://youtu.be/..." [START=0:05 END=0:08]  # mp3 into ~/Downloads/Soundboard/
 make cut FILE=path/to/sound.mp3 START=0:05 END=0:08          # writes "sound (cut).mp3"
 ```
+PS: this is of course 120% entirely vibe coded
